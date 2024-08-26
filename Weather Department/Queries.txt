@@ -1,0 +1,118 @@
+Q1:  DISPLAY MAX UV INDEX OF ALL CITIES 
+
+select max(ahmedabad.uv_index) as Ahmedabad_Highest_UV ,
+max(surat.uv_index) as Surat_Highest_UV, 
+max(vadodara.uv_index) as Vadodara_Highest_UV,
+max(gandhinagar.uv_index) as Gandhinagar_Highest_UV ,
+max(jamnagar.uv_index) as jamnagar_Highest_UV,
+max(rajkot.uv_index) as rajkot_Highest_UV,
+max(anand.uv_index) as anand_Highest_UV,
+max(Valsad.uv_index) as Valsad_Highest_UV,
+max(bharuch.uv_index) as bharuch_Highest_UV,
+max(amreli.uv_index) as amreli_Highest_UV 
+from ahmedabad inner join surat on ahmedabad.date = surat.date
+inner join vadodara on ahmedabad.date = vadodara.date 
+inner join gandhinagar on ahmedabad.date = gandhinagar.date 
+inner join jamnagar on ahmedabad.date = jamnagar.date 
+inner join rajkot on ahmedabad.date = rajkot.date 
+inner join anand on ahmedabad.date = anand.date 
+inner join valsad on ahmedabad.date = valsad.date 
+inner join bharuch on ahmedabad.date = bharuch.date 
+inner join amreli on ahmedabad.date = amreli.date;
+
+
+Q 2 : INSERT DATES HAVING UV INDEX GREATER THAN 5 IN HIGH UV INDEX TABLE AND FOR LOWER THAN 5 IN LOW UV INDEX
+
+create table High_UVindex (city_name varchar,date date,uv_index int);
+create table Low_UVindex (city_name varchar,date date,uv_index int);
+do $$
+declare
+	uvindex valsad.uv_index%type;
+	cityname valsad.city_name%type;
+	date1 valsad.date%type;
+	cursor3 cursor for select city_name, date, uv_index from valsad;
+begin
+	open cursor3;
+	loop
+		fetch cursor3 into cityname, date1, uvindex;
+    		exit when NOT FOUND;
+    			if uvindex > 5 then
+      			insert into High_UVindex values (cityname, date1, uvindex);
+    			else
+      			insert into Low_UVindex values (cityname, date1, uvindex);
+    			end if;
+  	end loop;
+  	close cursor3;
+end
+$$
+
+
+Q 3 : CREATE A FUNCTION TO CONVERT TEMPERATUE FROM CELCIUS TO FARENHEIT
+
+create or replace function temp_convert (temp int) returns int as $$
+declare 
+farenheit int ;
+begin
+farenheit = (1.8*temp)+32;
+raise notice ' celcius temp =  %     farenheit temp =  %',temp,farenheit;
+return farenheit;
+end;
+$$
+language plpgsql;
+select temp_convert (25);
+
+Q 4 : WRITE PLSQL BLOCK TO DISPLAY CITY NAMES IN THE DATABASE
+
+do $$
+declare
+cityname varchar(20);
+cursor1 cursor for select city_name from gujaratweatherdepartment;
+begin
+	open cursor1;
+		loop
+			fetch cursor1 into cityname;
+			exit when not found;
+			raise notice 'City "%"  is available in our database',cityname;
+		end loop;
+	close cursor1;
+end
+ $$
+
+Q 5: CREATE A TRIGGER FUNCTION TO DISPLAY A MESSAGE WHEN USER TRIES TO ENTER DATA INTO DATABASE
+
+create or replace function new_city () returns trigger as $$
+begin
+	if new.city_id < 0 then 
+	raise 'you cannot enter a new city with negative city id';
+	end if;
+	return new;
+end
+$$
+language plpgsql;
+create or replace trigger check_id before insert on gujaratweatherdepartment for each row
+execute function new_city();
+insert into gujaratweatherdepartment values(-11,'Surendranagar');
+
+Q 6 : CREATE A VIEW FOR HIGHEST TEMPERATURE IN PARTICULAR CITY
+
+create view highest_temp_ahm as select city_id,highest_temp,date from ahmedabad1 where highest_temp in (select max(highest_temp) from ahmedabad1 ) group by highest_temp,city_id,date ;
+
+Q 7 : CREATE A VIEW FOR LOWEST TEMPERATURE IN PARTICULAR CITY
+
+create view lowest_temp_ahm as select city_id,lowest_temp,date from ahmedabad1 where lowest_temp in (select max(lowest_temp) from ahmedabad1 ) group by lowest_temp,city_id,date ;
+
+Q 8 : CREATE QUERY FOR DATES HAVING HUMIDITY GREATER THAN AVERAGE HUMIDITY FOR A PARTICULAR CITY
+
+select * from vadodara where humidity > (select avg(humidity) from vadodara);
+
+Q 9 : DISPLAY CITY NAME STARTING WITH 'G' ; 
+
+select * from gujaratweatherdepartment where city_name like 'G%' ;
+
+Q 10 : DISPLAY TOTAL TOUPLES IN A PARTICULAR CITY
+
+select count(*) from jamnagar;
+
+Q 11 : DISPLAY DAY FROM A PARTICULAR DATE
+
+select extract (Day from timestamp '2023-07-03') ;

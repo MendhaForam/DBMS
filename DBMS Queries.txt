@@ -1,0 +1,176 @@
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Creation of Database
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create table FY3Batch (RollNo int, Branch varchar, FirstName varchar(20), LastName varchar(20), JAVA2 float, DS float, DBMS float, MATHS2 float, FEE float, Total_Sem2 float, Percentage float, Grade varchar, Total_Sem1 float, Overall_Attendance float, StarBatch2023 varchar);
+select * from FY3Batch;
+insert into FY3Batch values
+(63,'CST','Nilay','Sangani',67.5,78,79.5,68,73.5,366.5,73.3,'B+',266,99.68,'YES'),
+(64,'CSE','Janvi','Kapadia',66,79,88.5,64.5,77.5,376,75.2,'B+',266,96.82,'YES'),
+(65,'CST','Pratham','Dhanvade',73,92.5,82,77.5,86.5,411.5,82.3,'A',265,97.77,'YES'),
+(66,'CSE','Preyansh','patel',67,85,84.5,60.5,80,377,75.4,'B+',264,98.73,'YES'),
+(67,'CST','Harshrajsinh','Rana',68,78.5,80,68,80,375.5,75.1,'B+',263,63.38,'YES'),
+(68,'CSE','Dhruv','Tejani',62,72.5,62,55.5,66.5,318.5,63.7,'B',262,77.07,'NO'),
+(69,'CSE','Yash','Thakkar',64.5,78.5,83,58,72,356,71.2,'B+',262,78.66,'NO'),
+(70,'CST','Mihir','Patel',78,89.5,82,69.5,78,395,79,'B+',261,94.27,'YES'),
+(71,'CSE','Dishant','Patel',71.5,79,73.5,60,80.5,364.5,72.9,'B+',261,95.86,'YES'),
+(72,'CSE','Foram','Mendha',69.5,91,89,80.5,80,410,82,'A',261,95.86,'YES'),
+(73,'CSE','Dhruvanshi','Dave',65,79.5,85,75.5,80.5,385.5,77.1,'B+',261,99.04,'YES'),
+(74,'CSE','Princi','Rabadiya',69,72.5,73,83,88.5,368,73.6,'B+',261,91.08,'YES'),
+(75,'CSE','Shlok','Ghasadiya',60.5,80.5,72.5,58,75,346.5,69.3,'B',261,86.31,'NO'),
+(76,'CSE','Fulesh','Desai',66,86.5,75,68,76.5,372,74.4,'B+',260,90.13,'YES'),
+(77,'CSE','Nasirabbas','Dedharotiya',64.5,74.5,72,61,74.5,346.5,69.3,'B',259,79.62,'NO'),
+(78,'CST','Kartik','Gajjar',74.5,85,76,63.5,65.5,364.5,72.9,'B+',259,93.63,'YES'),
+(79,'CSE','Mitali','Vachhani',76.5,82,84.5,83,82.5,408.5,81.7,'A',258,96.50,'YES'),
+(80,'CSE','Deep','Shah',61,87,77.5,82.5,77.5,385.5,77.1,'B+',258,97.45,'YES'),
+(81,'CSE','Kalp','Mehta',69.5,81.5,73.5,68,75.5,368,73.6,'B+',258,86.31,'YES'),
+(82,'CSE','Rayhan','Patel',78.5,83,79.5,59.5,76,376.5,75.3,'B+',258,90.13,'YES'),
+(83,'CSE','Hyderali','Bhatt',72,72,70.5,63,76.5,354,70.8,'B',257,82.80,'YES'),
+(84,'CSE','Megh','Shah',67,80,71,66.5,84,368.5,73.7,'B+',256,94.59,'NO'),
+(85,'CSE','Manan','Prajapati',73.5,80,73.5,67,89,383,76.6,'B+',255,96.18,'YES'),
+(86,'CSE','Pravin','Mudarliya',66.5,69,81.5,66.5,79,362.5,72.5,'B+',255,94.59,'YES'),
+(87,'CSE','Krish','Thakkar',76,81,79.5,75.5,91,403,80.6,'B+',255,89.49,'YES'),
+(88,'CST','Shaily','Vaghela',67,84,73.5,61.5,80,366,73.2,'B+',255,96.50,'NO'),
+(89,'CSE','Stavan','Joshipura',66,77.5,76.5,60.5,78,358.5,71.7,'B+',253,82.80,'YES'),
+(90,'CSE','Umang','Panchal',70,88.5,85,69,87.5,400,80,'B+',253,90.13,'YES'),
+(91,'CSE','Parth','Dhamejani',78,76.5,84.5,49,60,348,69.6,'B',253,82.80,'NO'),
+(92,'CSE','Abhishek','Jotangiya',64,86,80.5,67,89,386.5,77.3,'B+',253,91.40,'YES'),
+(93,'CSE','Rutvi','Gelot',67,79,82,76,80.5,384.5,76.9,'B+',253,98.73,'YES');
+select * from FY3Batch;
+alter table FY3Batch add primary key (RollNo);
+select * from FY3Batch;
+
+create table Top_10 (RollNo int, Branch varchar, FirstName varchar(20), LastName varchar(20), JAVA2 float, DS float, DBMS float, MATHS2 float, FEE float, Total_Sem2 float, Percentage float, Grade varchar, Total_Sem1 float, Overall_Attendance float, StarBatch2023 varchar);
+select * from Top_10;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*TOPIC-1
+* Topic-1
+Create a table for top 10 Students using Cursor from existing table
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Do $$
+declare
+    	RollNo FY3Batch.RollNo%type;
+	Branch FY3Batch.Branch%type;
+	FirstName FY3Batch.FirstName%type;
+	LastName FY3Batch.LastName%type;
+	JAVA2 FY3Batch.JAVA2%type;
+	DS FY3Batch.DS%type;
+	DBMS FY3Batch.DBMS%type;
+	MATHS2 FY3Batch.MATHS2%type;
+	FEE FY3Batch.FEE%type;
+	Total_Sem2 FY3Batch.Total_Sem2%type;
+	Percentage FY3Batch.Percentage%type;
+	Grade FY3Batch.Grade%type;
+	Total_Sem1 FY3Batch.Total_Sem1%type;
+	Overall_Attendance Fy3Batch.Overall_Attendance%type;
+	StarBatch2023 FY3Batch.StarBatch2023%type;
+	top_10 cursor for select * from FY3Batch order by Percentage desc limit 10;
+
+begin
+	open top_10;
+			loop
+			fetch top_10 into RollNo,Branch,FirstName,LastName,JAVA2,DS,DBMS,MATHS2,FEE,Total_Sem2,Percentage,Grade,Total_Sem1,Overall_Attendance,StarBatch2023;
+			exit when not found;
+            		insert into Top_10 				
+			values(RollNo,Branch,FirstName,LastName,JAVA2,DS,DBMS,MATHS2,FEE,Total_Sem2,Percentage,Grade,Total_Sem1,Overall_Attendance,StarBatch2023);
+                        end loop;
+	close top_10;
+end;
+$$
+select * from Top_10;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*Topic-2
+Write a PL/SQL block to update the Percentage by 2% for students who have attendance greater than 90% 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------create view Original_data as select * from FY3Batch;
+Do $$
+declare
+	Roll_No FY3Batch.RollNo%type;
+	Branch_1 FY3Batch.Branch%type;
+	First_Name FY3Batch.FirstName%type;
+	Last_Name FY3Batch.LastName%type;
+	Percentage_1 FY3Batch.Percentage%type;
+	Attendance_90 cursor for select RollNo,Branch,FirstName,LastName,Percentage from FY3Batch where Overall_Attendance>95;
+begin
+	open Attendance_90;
+		loop
+		fetch Attendance_90 into Roll_No,Branch_1,First_Name,Last_Name,Percentage_1;
+		exit when not found;
+		Update FY3Batch set Percentage = Percentage+2 where current of Attendance_90;
+		end loop;
+	close Attendance_90;
+end
+$$
+select * from FY3Batch;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*Topic 3
+Write a Procedure to get Student Details by taking Rollno as Input.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create or replace procedure get_details(roll int) as $$
+declare
+	FName FY3Batch.FirstName%type;
+	LName FY3Batch.LastName%type;
+	Branch1 FY3Batch.Branch%type;
+	Per FY3Batch.Percentage%type;
+begin
+	select FirstName,LastName,Branch,Percentage into FName,LName,Branch1,Per from FY3Batch where roll=RollNo;
+	raise notice 'First Name = %, Last Name = %, Branch = %, Percentage = %',FName,LName,Branch1,Per;
+end
+$$
+language plpgsql;
+call get_details(72);
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*Topic 4
+Write a function to get count of StarBatch Students.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create or replace function count(x Varchar) returns int as $$ 
+declare
+y int;
+begin
+	select count(*) into y from FY3Batch where StarBatch2023 = x;
+	return y;
+end
+$$
+language plpgsql;
+select count('YES') as StarBatchStudents;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*Topic 5 
+Create a Trigger for insert update.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create or replace function check_rollno() returns trigger as $$
+begin
+if new.rollno <= 0 then
+	raise 'Roll No cannot be less than or equal to 0';
+end if;
+return new;
+end;
+$$
+language plpgsql;
+create trigger check_roll before insert on Fy3Batch for each row execute procedure check_rollno();
+insert into FY3Batch values (-6,'CST','Tirth','Mendha',67.5,78,79.5,68,73.5,366.5,73.3,'B+',266,99.68,'YES');
+insert into Fy3Batch values (0,'CSE','Devang','Prajapati',78,89.5,82,69.5,78,395,79,'B+',261,94.27,'YES');
+insert into Fy3Batch values (94,'CSE','Sudeep','Patel',72,72,70.5,63,76.5,354,70.8,'B',257,82.80,'YES');
+select * from Fy3Batch;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*Topic 6
+Queries
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1.  SQL query to find all the students with total greater than the average total.
+		select rollno,firstname,lastname from Top_10 where total_sem2 > (select avg(total_sem2) from Top_10);
+
+2. SQL query to find all the students with grade='A'.
+		select FirstName from Top_10 where Grade='A';
+
+3. SQL query to find third highest total of a student.
+		select max(total_sem2) from Top_10 where total_sem2 < (select max(total_sem2) from Top_10 where total_sem2 <>(select max(total_sem2) from Top_10));
+
+4. SQL query to find FirstName of students starting with letter P.
+		select * from Top_10 where FirstName like 'P%';
+
+5. SQL query to find a student with highest marks in DBMS subject.
+		select * from Top_10 where dbms = (select max(dbms) from Top_10);
+
+6. SQL query to find total number of students with Brach = 'CST'.
+		select count(*) from top_10 where Branch='CST';
+
+7. SQL query to create view on table where Branch = 'CST'.
+		create view CSTStudents as select * from top_10 where Branch='CST';
